@@ -46,7 +46,7 @@ function drawPaddle(x, y)
 
 function drawCenterLine()
 {
-  for(var i = 0; i < innerHeight; i += 30)
+  for(var i = 0; i < innerHeight; i += 16)
   {
     context.beginPath();
     context.rect(innerWidth/2, i, 2, 8);
