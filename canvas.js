@@ -86,7 +86,7 @@ function updateScore()
   context.font = '84px Pong';
   context.fillStyle = 'white';
   context.fillText(rightScore, innerWidth/2 - 200, 150);
-  context.fillText(leftScore, innerWidth/2 + 200, 150);
+  context.fillText(leftScore, innerWidth/2 + 284, 150);
 }
 
 document.onkeydown = function(e)
