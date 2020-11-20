@@ -117,39 +117,48 @@ function ballReset()
 ballReset();
 function animate()
 {
-  context.clearRect(0, 0, innerWidth, innerHeight);
-  requestAnimationFrame(animate);
+  if(!(leftScore == 10 || rightScore == 10))
+  {
+    context.clearRect(0, 0, innerWidth, innerHeight);
+    requestAnimationFrame(animate);
+    drawCenterLine();
+    drawBall();
+    drawPaddle(leftPaddleX, leftPaddleY);
+    drawPaddle(rightPaddleX, rightPaddleY);
+    moveLeftPaddle();
+    moveRightPaddle();
+    updateScore();
 
-  drawCenterLine();
-  drawBall();
-  drawPaddle(leftPaddleX, leftPaddleY);
-  drawPaddle(rightPaddleX, rightPaddleY);
-  moveLeftPaddle();
-  moveRightPaddle();
-  updateScore();
+    if(ballY + 10 > innerHeight || ballY - 10 < 0)
+    {
+      ballYSpeed = -ballYSpeed;
+    }
+    if(ballX - 10 < 0)
+    {
+      ++rightScore;
+      ballReset();
+    }
+    if(ballX + 10 > innerWidth)
+    {
+      ++leftScore;
+      ballReset();
+    }
+    if((ballX + 10) < (leftPaddleX + 40) && (ballY > leftPaddleY && ballY < (leftPaddleY + 120)) || (ballX - 10) > (rightPaddleX - 20) && (ballY > rightPaddleY && ballY < (rightPaddleY + 120)))
+    {
+      ballXSpeed = -ballXSpeed;
+      speed += 3;
+    }
 
-  if(ballY + 10 > innerHeight || ballY - 10 < 0)
-  {
-    ballYSpeed = -ballYSpeed;
+    ballX += ballXSpeed;
+    ballY += ballYSpeed;
   }
-  if(ballX - 10 < 0)
+  else
   {
-    rightScore++;
-    ballReset();
+    if(confirm((leftScore == 10)? 'Left player won.' : 'Right player won.'))
+    {
+      document.location.reload();
+    }
   }
-  if(ballX + 10 > innerWidth)
-  {
-    leftScore++;
-    ballReset();
-  }
-  if((ballX + 10) < (leftPaddleX + 40) && (ballY > leftPaddleY && ballY < (leftPaddleY + 120)) || (ballX - 10) > (rightPaddleX - 20) && (ballY > rightPaddleY && ballY < (rightPaddleY + 120)))
-  {
-    ballXSpeed = -ballXSpeed;
-    speed++;
-  }
-
-  ballX += ballXSpeed;
-  ballY += ballYSpeed;
 }
 
 animate();
